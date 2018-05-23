@@ -17,12 +17,12 @@
 <body>
 <canvas height="500" width="800"></canvas>
 
-<div class="direction">
-    <button>左</button>
-    <button>上</button>
-    <button>又</button>
-    <button>下</button>
-</div>
+<!--<div class="direction">-->
+    <!--<button>左</button>-->
+    <!--<button>上</button>-->
+    <!--<button>又</button>-->
+    <!--<button>下</button>-->
+<!--</div>-->
 <script>
     var canvas = document.querySelector("canvas");
     var ctx = canvas.getContext("2d");
@@ -38,7 +38,32 @@
     var leftPressed = false;
     var upPressed = false;
     var downPressed = false;
+    window.addEventListener("deviceorientation", orientationHandler, false);
 
+    function orientationHandler(event) {
+
+        var nowBeta = event.beta;
+        var nowGamma = event.gamma;
+
+        if (Math.abs(nowBeta) > Math.abs(nowGamma)) {
+            if (nowBeta > 0) {
+                dy = 2;
+                dx = 0;
+            }else{
+                dy = -2;
+                dx = 0;
+            }
+        }else{
+            if (nowGamma > 0) {
+                dx = 2;
+                dy = 0;
+            }else{
+                dx = -2;
+                dy = 0;
+            }
+        }
+    }
+    /*
     var btns = document.getElementsByTagName("button");
     btns[0].onclick = function () {
         dx = -2;
@@ -56,6 +81,7 @@
         dy = 2;
         dx = 0;
     };
+    */
 
     document.addEventListener("keydown", keyDownHandler, false);
 
